@@ -62,11 +62,11 @@ function Bunny (x,y,health,hunger,thirst,age,speed,sightDist)
 	this.timestep = function(world)
 	{
 		this.decide(world);
-		var hungerloss=2;
-		var thirstloss=2;
-		this.set('hunger',this.get('hunger')-hungerloss);
-		this.set('thirst',this.get('thirst')-hungerloss);
-		this.set('age',this.get('age')-1);
+		var hungerincrease=2;
+		var thirstincrease=2;
+		this.set('hunger',this.get('hunger')+hungerloss);
+		this.set('thirst',this.get('thirst')+hungerloss);
+		this.set('age',this.get('age')+1);
 		
 	}
 	return this;
