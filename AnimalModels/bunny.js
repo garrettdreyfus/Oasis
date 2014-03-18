@@ -15,8 +15,8 @@ function Bunny (x,y,health,hunger,thirst,age,speed,sightDist)
 	this.x = x;
 	this.y = y;
 	this.health = health;
-	this.hunger = cap (hunger);
-	this.thirst = cap (thirst);
+	this.hunger = hunger;
+	this.thirst = thirst;
 	this.age = age;
 	this.speed = speed;
 	this.sightDist  = sightDist;
@@ -29,10 +29,6 @@ function Bunny (x,y,health,hunger,thirst,age,speed,sightDist)
 	this.set = function (attr,value)
 	{
 		this[attr] = value;
-	}
-	//makes the decison
-	this.decide = function (world)
-	{
 	}
 	//move the distance
 	this.move = function (xdist,ydist)
@@ -47,6 +43,20 @@ function Bunny (x,y,health,hunger,thirst,age,speed,sightDist)
 		{
 			return false;
 		}
+	}
+	//returns Water Heuristic 
+	this.waterHeur = function (world)
+	{
+		return world.closestWaterDistance(this.get('x'),this.get('y')) * this.get('thirst')
+	}
+	//returns Grass Heuristic 
+	this.grassHeur = function (world)
+	{
+		return world.closestGrassDistance(this.get('x'),this.get('y')) * this.get('hunger')
+	}
+	//makes the decison
+	this.decide = function (world)
+	{
 	}
 	//ages the animal by one, decreades hunger thirst and age + decides
 	this.timestep = function(world)

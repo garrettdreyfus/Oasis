@@ -37,7 +37,7 @@ function World (animals,grass,water,width,height)
 		var minimum = 0;
 		for(var i=0; i<locations.length; i++)
 		{
-			var dist = locations[i][0]+locations[i][1];
+			var dist = Math.abs(locations[i][0]-x)+Math.abs(locations[i][1]-y);
 			if(dist<minimum)
 			{
 				minimum = dist;
@@ -53,7 +53,7 @@ function World (animals,grass,water,width,height)
 		var minimum = 0;
 		for(var i=0; i<locations.length; i++)
 		{
-			var dist = locations[i][0]+locations[i][1];
+			var dist = Math.abs(locations[i][0]-x)+Math.abs(locations[i][1]-y);
 			if(dist<minimum)
 			{
 				minimum = dist;
