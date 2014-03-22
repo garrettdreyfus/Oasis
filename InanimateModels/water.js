@@ -1,17 +1,13 @@
 function Water (locations)
 {
 	this.locations = locations;
+}
+Water.prototype.get = function (attr)
+{
+	return this[attr];
+}
 
-	this.get = function (attr)
-	{
-		return this[attr];
-	}
-
-	this.set = function (attr,value)
-	{
-		this[attr] = value;
-	}
-
-
-	return this;
+Water.prototype.set = function (attr,value)
+{
+	this[attr] = value;
 }
