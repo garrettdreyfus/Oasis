@@ -1,7 +1,8 @@
 function FauxWolf (wolf)
 {
-	Animal.call(this,x,y,health,hunger,thirst,age,speed,sightDist);
-	this.attack = attack;
+	this.x = wolf.x;
+	this.y = wolf.y;
+	this.sightDist = wolf.sightDist;
 	this.knownLocations = [];
 	this.species = 'Wolf';
 }

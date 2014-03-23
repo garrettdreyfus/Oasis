@@ -7,19 +7,27 @@ function World (animals,grass,water,width,height)
 	this.height = height;
 }
 //Returns all animals within a certain range
-World.prototype.scanInRange = function (x,y,radius)
+World.prototype.scanInRange = function (self)
 {
 	var inrange = [];
 	var animals = this.animals; 
 	for(var i=0;i<animals.length;i++)
 	{ 
 		var animal = animals[i];
-		if(Math.abs(animal.x-x) + Math.abs(animal.y-y) <= radius)
+		if(Math.abs(animal.x-x) + Math.abs(animal.y-y) <= self.sightDist && self.id != animal.id)
 		{
-			inrange.push(animal)	
+			if(animal.species == 'Bunny')
+			{
+				inrange.push(new FauxBunny(animal));	
+			}
+			if(animal.species == 'Wolf')
+			{
+				inrange.push(new FauxBunny(animal));	
+			}
 		}
 	}
-	return inrange;
+	
+	return inrange
 }
 //Returns distance to closest grass
 World.prototype.closestGrassDistance = function (x,y)

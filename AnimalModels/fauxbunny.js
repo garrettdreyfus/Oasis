@@ -1,6 +1,6 @@
 function FauxBunny (bunny)
 {
-	this.species = 'FauxBunny';
+	this.species = 'Bunny';
 	this.x = bunny.x;
 	this.y = bunny.y;
 	this.sightDist = bunny.sightDist;

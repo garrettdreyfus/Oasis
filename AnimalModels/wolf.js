@@ -11,7 +11,7 @@ Wolf.prototype.waterHeur = function (x,y,world)
 {
 	return world.closestWaterDistance(x,y) * this.thirst;
 }
-Wolf.prototype.huntHeur = function(x,y,world)
+Wolf.prototype.huntHeur = function(x,y)
 {
 	var maximum;
 	var knownLocations = this.knownLocations;
@@ -26,26 +26,6 @@ Wolf.prototype.huntHeur = function(x,y,world)
 	return maximum
 }
 
-var getFauxCopies = function(arr)
-{
-	newarr = []	
-	for(var i=0; i<arr.length; i++)
-	{
-		if(arr[i].species == 'Bunny')
-		{
-			newarr.push(new FauxBunny(arr[i]));	
-		}
-		if(arr[i].species == 'Wolf')
-		{
-			newarr.push(new FauxBunny(arr[i]));	
-		}
-		else
-		{
-			newarr.push(arr[i]);
-		}
-	}
-	return newarr
-}
 Wolf.prototype.catalogueBunnyLocations = function(animals)
 {
 	var animals = animals.filter(function (el) {return el.id == 'Bunny' });
@@ -57,7 +37,6 @@ Wolf.prototype.catalogueBunnyLocations = function(animals)
 //A wolf=s one dimensional mental model of a bunny 
 Wolf.prototype.combatHeur = function(animals)
 {
-	var animals = getFauxCopies(animals);
 	this.catalogueBunnyLocations(animals);
 	var maximum =0;
 	for(var step=0;step<5;step++)
@@ -74,7 +53,7 @@ Wolf.prototype.combatHeur = function(animals)
 			var minimum=0;
 			for(var i=0;i<animals.length;i++)
 			{
-				if(animals[i].species =='FauxBunny')
+				if(animals[i].species =='Bunny')
 				{
 					var mandist = Math.abs(animals[i].x - animals[animal].x) + Math.abs(animals[i].y - animals[animal].y);
 					if(mandist<minimum){
@@ -89,8 +68,8 @@ Wolf.prototype.combatHeur = function(animals)
 Wolf.prototype.totalHeuristic = function (x,y,world)
 {
 	var total;
-	total += this.combatHeur(world.scanInRange(x,y,this.sightDist));
-	total += this.huntHeur(x,y,world);
+	total += this.combatHeur(world.scanInRange(this).push(JSON.parse(JSON.stringify(this))));
+	total += this.huntHeur(x,y);
 	total += this.waterHeur(x,y,world);
 	return total;
 }

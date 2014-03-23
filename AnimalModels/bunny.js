@@ -32,7 +32,7 @@ Bunny.prototype.totalHeuristic = function (x,y,world)
 	var totalH;
 	totalH += this.waterHeur(x,y,world);
 	totalH += this.grassHeur(x,y,world);
-	totalH += this.wolfHeur(x,y,world.scanInRange(this.x,this.y,this.sightDist));
+	totalH += this.wolfHeur(x,y,world.scanInRange(this));
 	return totalH;
 }
 //makes the decison
