@@ -15,10 +15,10 @@ function Animal (x,y,health,hunger,thirst,age,speed,sightDist)
 //move the distance
 Animal.prototype.move = function (xdist,ydist)
 {
-	if ( xdist + ydist <= speed ) // check to make sure this is what you want
+	if ( Math.abs(xdist) + Math.abs(ydist) <= 2 ) // check to make sure this is what you want
 	{
-		this.x += this.xdist;
-		this.y += this.ydist;
+		this.x += this.xdist*speed;
+		this.y += this.ydist*speed;
 		return true;
 	}
 	else
@@ -45,8 +45,7 @@ Animal.prototype.decide = function (world)
 			maximumHeur = [totalHeur,x,y];
 		}
 	}
-	this.x = maximumHeur[1]*this.speed;
-	this.y = maximumHeur[2]*this.speed;
+	this.move(maximumHeur[1], maximumHeur[2]);
 	
 }
 
