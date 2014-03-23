@@ -6,25 +6,15 @@ function World (animals,grass,water,width,height)
 	this.width = width;
 	this.height = height;
 }
-//get attribute
-World.prototype.get = function (attr)
-{
-	return this[attr];
-}
-//set attribute
-World.prototype.set = function (attr,value)
-{
-	this[attr] = value;
-}
 //Returns all animals within a certain range
 World.prototype.scanInRange = function (x,y,radius)
 {
 	var inrange = [];
-	var animals = this.get('animals'); 
+	var animals = this.animals; 
 	for(var i=0;i<animals.length;i++)
 	{ 
 		var animal = animals[i];
-		if(Math.abs(animal.get('x')-x) + Math.abs(animal.get('y')-y) <= radius)
+		if(Math.abs(animal.x-x) + Math.abs(animal.y-y) <= radius)
 		{
 			inrange.push(animal)	
 		}
@@ -34,7 +24,7 @@ World.prototype.scanInRange = function (x,y,radius)
 //Returns distance to closest grass
 World.prototype.closestGrassDistance = function (x,y)
 {
-	var locations = this.get('water').get('locations');
+	var locations = this.water.locations;
 	var minimum = 0;
 	for(var i=0; i<locations.length; i++)
 	{
@@ -50,7 +40,7 @@ World.prototype.closestGrassDistance = function (x,y)
 World.prototype.closestWaterDistance = function (x,y)
 {
 
-	var locations = this.get('grass').get('locations');
+	var locations = this.grass.locations;
 	var minimum = 0;
 	for(var i=0; i<locations.length; i++)
 	{

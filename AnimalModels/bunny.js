@@ -5,17 +5,17 @@ function Bunny (x,y,health,hunger,thirst,age,speed,sightDist)
 Bunny.prototype = new Animal();
 Bunny.prototype.grassHeur = function (x,y,world)
 {
-	return world.closestGrassDistance(x,y)* this.get('hunger');
+	return world.closestGrassDistance(x,y)* this.hunger;
 }
 Bunny.prototype.wolfHeur = function (x,y,world)
 {
 	var heursum = 0;
-	var inrange = world.scanInRange(this.get('x'),this.get('y'),this.get('sightDist'));
+	var inrange = world.scanInRange(this.x,this.y,this.sightDist);
 	for(var i=0; i< inrange.length; i++)
 	{
 		if(inrange[i].type=='wolf')
 		{
-			heursum += Math.abs(x-inrange[i].get('x')) + Math.abs(y-inrange[i].get('y'));
+			heursum += Math.abs(x-inrange[i].x) + Math.abs(y-inrange[i].y);
 		}
 	}
 	if(heursum != 0)
@@ -64,8 +64,8 @@ Bunny.prototype.timestep = function(world)
 	this.decide(world);
 	var hungerincrease=2;
 	var thirstincrease=2;
-	this.set('hunger',this.get('hunger')+hungerloss);
-	this.set('thirst',this.get('thirst')+hungerloss);
-	this.set('age',this.get('age')+1);
+	this.hunger = this.hunger+hungerloss;
+	this.thirst += this.thirst+hungerloss;
+	this.age += 1;
 	
 }

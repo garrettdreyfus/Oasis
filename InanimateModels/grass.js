@@ -1,5 +1,4 @@
-function Water (locations)
+function Grass (locations)
 {
 	this.locations = locations;
 }
-
