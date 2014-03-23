@@ -1,4 +1,4 @@
-function Wolf (x,y,health,hunger,thirst,age,speed,sightDist,thirst)
+function Wolf (x,y,health,hunger,thirst,age,speed,sightDist,thirst,attack)
 {
 	Animal.call(this,x,y,health,hunger,thirst,age,speed,sightDist);
 	this.attack = attack;
@@ -86,7 +86,7 @@ Wolf.prototype.combatHeur = function(animals)
 		}
 	}
 }
-Bunny.prototype.totalHeuristic = function (x,y,world)
+Wolf.prototype.totalHeuristic = function (x,y,world)
 {
 	var total;
 	total += this.combatHeur(world.scanInRange(x,y,this.sightDist));
