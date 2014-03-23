@@ -6,7 +6,7 @@ function FauxBunny (bunny)
 	this.sightDist = bunny.sightDist;
 }
 FauxBunny.prototype = new Bunny();
-Bunny.prototype.totalHeuristic = function (x,y,world)
+FauxBunny.prototype.totalHeuristic = function (x,y,world)
 {
 	var totalH;
 	totalH += this.wolfHeur(x,y,world.scanInRange(this.x,this.y,this.sightDist));
