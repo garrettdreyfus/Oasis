@@ -1,21 +1,21 @@
 function Bunny (x,y,health,hunger,thirst,age,speed,sightDist)
 {
 	Animal.call(this,x,y,health,hunger,thirst,age,speed,sightDist);
+	this.species = 'Bunny';
 }
 Bunny.prototype = new Animal();
 Bunny.prototype.grassHeur = function (x,y,world)
 {
 	return world.closestGrassDistance(x,y)* this.hunger;
 }
-Bunny.prototype.wolfHeur = function (x,y,world)
+Bunny.prototype.wolfHeur = function (x,y,animals)
 {
 	var heursum = 0;
-	var inrange = world.scanInRange(this.x,this.y,this.sightDist);
-	for(var i=0; i< inrange.length; i++)
+	for(var i=0; i< animals.length; i++)
 	{
-		if(inrange[i].type=='wolf')
+		if(animals[i].type=='Wolf')
 		{
-			heursum += Math.abs(x-inrange[i].x) + Math.abs(y-inrange[i].y);
+			heursum += Math.abs(x-animals[i].x) + Math.abs(y-animals[i].y);
 		}
 	}
 	if(heursum != 0)
@@ -32,32 +32,10 @@ Bunny.prototype.totalHeuristic = function (x,y,world)
 	var totalH;
 	totalH += this.waterHeur(x,y,world);
 	totalH += this.grassHeur(x,y,world);
-	totalH += this.wolfHeur(x,y,world);
+	totalH += this.wolfHeur(x,y,world.scanInRange(this.x,this.y,this.sightDist));
 	return totalH;
 }
 //makes the decison
-Bunny.prototype.decide = function (world)
-{
-	var xArr = [-1,0,1];
-	var yArr = [-1,0,1];
-	var maximumHeur;
-	for (var xc=0; xc<xArr.length; xc++)
-	{
-		var x = xArr[xc];
-		for (var yc=0; yc<yArr.length; yc++)
-		{
-			var y = yArr[yc];
-			var totalHeur = this.totalHeuristic(x,y,world);
-			if(totalHeur>maximumHeur[0])
-			{
-				maximumHeur = [totalHeur,x,y];
-			}
-		}
-	}
-	this.set('x',maximumHeur[1]);
-	this.set('y',maximumHeur[2]);
-	
-}
 //ages the animal by one, decreases hunger thirst and age + decides
 Bunny.prototype.timestep = function(world)
 {

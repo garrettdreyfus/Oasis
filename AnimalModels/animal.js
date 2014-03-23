@@ -1,3 +1,4 @@
+id =0;
 function Animal (x,y,health,hunger,thirst,age,speed,sightDist)
 {
 	this.x = x;
@@ -9,6 +10,7 @@ function Animal (x,y,health,hunger,thirst,age,speed,sightDist)
 	this.speed = speed;
 	this.sightDist = sightDist;
 	this.type = 'bunny';
+	this.uniqueId = id+=1;
 }
 //move the distance
 Animal.prototype.move = function (xdist,ydist)
@@ -28,5 +30,23 @@ Animal.prototype.move = function (xdist,ydist)
 Animal.prototype.waterHeur = function (x,y,world)
 {
 	return world.closestWaterDistance(x,y) * this.thirst;
+}
+Animal.prototype.decide = function (world)
+{
+	var movements = [[1,1],[1,0],[1,-1],[0,1],[0,-1],[0,0],[-1,1],[-1,0],[-1,-1]];
+	var maximumHeur;
+	for (var movement=0; movement<movements.length; movement++)
+	{
+		var x = movements[movement][0];
+		var y = movements[movement][1];
+		var totalHeur = this.totalHeuristic(x,y,world);
+		if(totalHeur>maximumHeur[0])
+		{
+			maximumHeur = [totalHeur,x,y];
+		}
+	}
+	this.x = maximumHeur[1]*this.speed;
+	this.y = maximumHeur[2]*this.speed;
+	
 }
 
