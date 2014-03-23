@@ -7,7 +7,7 @@ function FauxWolf (wolf)
 	this.species = 'Wolf';
 }
 FauxWolf.prototype = new Wolf();
-Bunny.prototype.totalHeuristic = function (x,y,world)
+FauxWolf.prototype.totalHeuristic = function (x,y,world)
 {
 	var total;
 	total += this.combatHeur(world.scanInRange(x,y,this.sightDist));
