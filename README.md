@@ -22,6 +22,7 @@ Right now the project is focused on a very simple predator prey model.
 ###Things a bunny can do right now
 - search for water and grass
 - one level deep run-away combat decisions
+
 ###Things a bunny will do 
 -mate
 
