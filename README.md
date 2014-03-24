@@ -23,7 +23,6 @@ Right now the project is focused on a very simple predator prey model.
 - search for water and grass
 - one level deep run-away combat decisions
 ###Things a bunny will do 
-
 -mate
 
 # Structure 
