@@ -24,7 +24,7 @@ Right now the project is focused on a very simple predator prey model.
 - one level deep run-away combat decisions
 
 ###Things a bunny will do 
--mate
+- mate
 
 # Structure 
 The general structure of the project is this. There is a main Animal prototype which the bunny and wolf prototype inherit from. Each animal prototype is required to have one function called totalHeuristic which the Animal prototype uses for the function decide. This can be anything, even a random number, see examples of the structure in the wolf.js and bunny.js files. Each animal should also have a Faux model prototype which are meant to represent an animals internal model of the other animals it meets ( take alook at FauxWolf and FauxBunny for examples). Later as persistent knowledge is integrated a list of faux models with be an attribute of each animal so that it can make deductions about the outside world.
