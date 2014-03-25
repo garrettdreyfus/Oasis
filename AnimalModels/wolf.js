@@ -1,19 +1,17 @@
-function Wolf (x,y,health,hunger,thirst,age,speed,sightDist,thirst,attack)
+function Wolf (x,y,health,hunger,thirst,age,speed,sightDist,attack)
 {
 	Animal.call(this,x,y,health,hunger,thirst,age,speed,sightDist);
 	this.attack = attack;
 	this.knownLocations = [];
+	this.knowledge = [];
 	this.species = 'Wolf';
 }
 Wolf.prototype = new Animal();
 //returns Water Heuristic 
-Wolf.prototype.waterHeur = function (x,y,world)
-{
-	return world.closestWaterDistance(x,y) * this.thirst;
-}
+
 Wolf.prototype.huntHeur = function(x,y)
 {
-	var maximum;
+	var maximum=0;
 	var knownLocations = this.knownLocations;
 	for(var i=0; i<knownLocations.length;i++)
 	{
@@ -33,11 +31,12 @@ Wolf.prototype.catalogueBunnyLocations = function(animals)
 	{
 		this.knownLocations.push([animals[i].x,animals[i].y]);
 	}
+	return animals
 }
 //A wolf=s one dimensional mental model of a bunny 
 Wolf.prototype.combatHeur = function(animals)
 {
-	this.catalogueBunnyLocations(animals);
+	animals = this.catalogueBunnyLocations(animals);
 	var maximum =0;
 	for(var step=0;step<5;step++)
 	{
@@ -64,11 +63,14 @@ Wolf.prototype.combatHeur = function(animals)
 			return 1/(minimum) * 10000;
 		}
 	}
+	return 0;
 }
 Wolf.prototype.totalHeuristic = function (x,y,world)
 {
-	var total;
-	total += this.combatHeur(world.scanInRange(this).push(JSON.parse(JSON.stringify(this))));
+	var total =0;
+	var animalsAndSelf = world.scanInRange(this);
+	animalsAndSelf.push(JSON.parse(JSON.stringify(this)));
+	total += this.combatHeur(animalsAndSelf);
 	total += this.huntHeur(x,y);
 	total += this.waterHeur(x,y,world);
 	return total;

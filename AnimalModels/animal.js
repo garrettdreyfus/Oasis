@@ -15,31 +15,23 @@ function Animal (x,y,health,hunger,thirst,age,speed,sightDist)
 //move the distance
 Animal.prototype.move = function (xdist,ydist)
 {
-	if ( Math.abs(xdist) + Math.abs(ydist) <= 2 ) // check to make sure this is what you want
-	{
-		this.x += this.xdist*speed;
-		this.y += this.ydist*speed;
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	this.x += xdist*this.speed;
+	this.y += ydist*this.speed;
 }
 //returns Water Heuristic 
 Animal.prototype.waterHeur = function (x,y,world)
 {
-	return world.closestWaterDistance(x,y) * this.thirst;
+	return (1/world.closestWaterDistance(x,y)) * this.thirst *1000;
 }
 Animal.prototype.decide = function (world)
 {
 	var movements = [[1,1],[1,0],[1,-1],[0,1],[0,-1],[0,0],[-1,1],[-1,0],[-1,-1]];
-	var maximumHeur;
+	var maximumHeur = [0,0,0];
 	for (var movement=0; movement<movements.length; movement++)
 	{
 		var x = movements[movement][0];
 		var y = movements[movement][1];
-		var totalHeur = this.totalHeuristic(x,y,world);
+		var totalHeur = this.totalHeuristic(this.x+x,this.y+y,world);
 		if(totalHeur>maximumHeur[0])
 		{
 			maximumHeur = [totalHeur,x,y];
@@ -49,3 +41,9 @@ Animal.prototype.decide = function (world)
 	
 }
 
+Animal.prototype.isdead = function()
+{
+	return this.thirst >100 || 
+		this.hunger>100 ||
+		this.health<1
+}

@@ -14,7 +14,7 @@ World.prototype.scanInRange = function (self)
 	for(var i=0;i<animals.length;i++)
 	{ 
 		var animal = animals[i];
-		if(Math.abs(animal.x-x) + Math.abs(animal.y-y) <= self.sightDist && self.id != animal.id)
+		if(Math.abs(animal.x-self.x) + Math.abs(animal.y-self.y) <= self.sightDist )
 		{
 			if(animal.species == 'Bunny')
 			{
@@ -22,7 +22,7 @@ World.prototype.scanInRange = function (self)
 			}
 			if(animal.species == 'Wolf')
 			{
-				inrange.push(new FauxBunny(animal));	
+				inrange.push(new FauxWolf(animal));	
 			}
 		}
 	}
@@ -32,8 +32,8 @@ World.prototype.scanInRange = function (self)
 //Returns distance to closest grass
 World.prototype.closestGrassDistance = function (x,y)
 {
-	var locations = this.water.locations;
-	var minimum = 0;
+	var locations = this.grass.locations;
+	var minimum = Infinity;
 	for(var i=0; i<locations.length; i++)
 	{
 		var dist = Math.abs(locations[i][0]-x)+Math.abs(locations[i][1]-y);
@@ -48,8 +48,8 @@ World.prototype.closestGrassDistance = function (x,y)
 World.prototype.closestWaterDistance = function (x,y)
 {
 
-	var locations = this.grass.locations;
-	var minimum = 0;
+	var locations = this.water.locations;
+	var minimum = Infinity;
 	for(var i=0; i<locations.length; i++)
 	{
 		var dist = Math.abs(locations[i][0]-x)+Math.abs(locations[i][1]-y);
