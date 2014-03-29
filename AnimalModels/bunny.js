@@ -20,7 +20,7 @@ Bunny.prototype.wolfHeur = function (x,y,animals)
 	}
 	if(heursum != 0)
 	{
-		return (1/heursum)*-500000000000000000000000000;
+		return (1/heursum)*-500000000;
 	}
 	else{
 		return 0;	

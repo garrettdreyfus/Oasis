@@ -29,6 +29,25 @@ World.prototype.scanInRange = function (self)
 	
 	return inrange
 }
+World.prototype.adjacentSweep = function (self)
+{
+	var inrange = [];
+	var animals = this.animals; 
+	for(var i=0;i<animals.length;i++)
+	{ 
+		var animal = animals[i];
+		if(Math.abs(animal.x-self.x) + Math.abs(animal.y-self.y)<= 10)
+		{
+			if(animal.species == 'Bunny')
+			{
+				inrange.push(animal);
+			}
+		}
+	}
+	
+	return inrange
+
+}
 //Returns distance to closest grass
 World.prototype.closestGrassDistance = function (x,y)
 {

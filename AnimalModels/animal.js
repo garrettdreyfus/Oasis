@@ -21,7 +21,7 @@ Animal.prototype.move = function (xdist,ydist)
 //returns Water Heuristic 
 Animal.prototype.waterHeur = function (x,y,world)
 {
-	return (1/world.closestWaterDistance(x,y)) * this.thirst *1000;
+	return 0;//(1/world.closestWaterDistance(x,y)) * this.thirst *1000;
 }
 Animal.prototype.decide = function (world)
 {

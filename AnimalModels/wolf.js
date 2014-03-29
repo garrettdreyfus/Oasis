@@ -60,7 +60,7 @@ Wolf.prototype.combatHeur = function(animals)
 					}
 				}
 			}
-			return 1/(minimum) * 10000;
+			return 1/(minimum) * 10000000000000000000000000;
 		}
 	}
 	return 0;
